@@ -23,8 +23,10 @@
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><span class="fa fa-share"><%= __('share') %></span></a>
-      <% if (post.comments && theme.disqus_shortname){ %>
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link">
+        <span class="fa fa-share">Compartir esta publicación</span>
+      </a>
+            <% if (post.comments && theme.disqus_shortname){ %>
         <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><span class="fa fa-comment"><%= __('comment') %></span></a>
       <% } %>
       <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>

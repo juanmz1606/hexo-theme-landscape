@@ -308,3 +308,35 @@ $article-share-link
     display: block
     max-width: 100%
     margin: 0 auto
+
+.star-outline
+  display inline-block
+  width 20px
+  height 20px
+  background url('/css/images/estrella_vacia.jpeg') no-repeat center center
+  background-size contain
+  cursor pointer
+
+  &.filled
+    background url('/css/images/estrellapng.png') no-repeat center center
+    background-size contain
+
+.rating-container
+  display flex
+  align-items center
+  width 100%
+
+.average-rating
+  display flex
+  align-items center
+  background-color #f0f0f0
+  border-radius 5px
+  padding 5px 10px
+  margin-left auto
+  margin-right auto
+  font-size 1.2em
+  color #333
+
+  .fa-star
+    color #FFD700
+    margin-right 5px

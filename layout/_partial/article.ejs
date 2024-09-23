@@ -1,57 +1,74 @@
-<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
-  </div>
-  <div class="article-inner">
-    <%- partial('post/gallery') %>
-    <% if (post.link || post.title){ %>
-      <header class="article-header">
-        <%- partial('post/title', {class_name: 'p-name article-title'}) %>
-      </header>
-    <% } %>
-    <div class="e-content article-entry" itemprop="articleBody">
-      <% if (post.excerpt && index){ %>
-        <%- post.excerpt %>
-        <% if (theme.excerpt_link){ %>
-          <p class="article-more-link">
-            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
-          </p>
-        <% } %>
-      <% } else { %>
-        <%- post.content %>
-      <% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <article id="<%= post.layout %>-<%= post.slug %>" class="article" data-post-id="<%= post._id %>">
+    <div class="article-meta">
+      <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+      <%- partial('post/category') %>
     </div>
-    <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link">
-        <span class="fa fa-share">Compartir esta publicación</span>
-      </a>
-            <% if (post.comments && theme.disqus_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><span class="fa fa-comment"><%= __('comment') %></span></a>
+    <div class="article-inner">
+      <%- partial('post/gallery') %>
+      <% if (post.link || post.title){ %>
+        <header class="article-header">
+          <%- partial('post/title', {class_name: 'p-name article-title'}) %>
+        </header>
       <% } %>
-      <% if (post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey ){ %>
-        <a href="<%- url_for(post.path) %>#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count fa fa-comment" data-xid="<%- url_for(post.path) %>" itemprop="commentCount"></span>
-          <%= __('comment') %>
-        </a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
+      <div class="e-content article-entry" itemprop="articleBody">
+        <% if (post.excerpt && index){ %>
+          <%- post.excerpt %>
+          <% if (theme.excerpt_link){ %>
+            <p class="article-more-link">
+              <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+            </p>
+          <% } %>
+        <% } else { %>
+          <%- post.content %>
+        <% } %>
+      </div>
+      <footer class="article-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="rating-container">
+          <div class="rating">
+            <span class="star-outline" data-value="1"></span>
+            <span class="star-outline" data-value="2"></span>
+            <span class="star-outline" data-value="3"></span>
+            <span class="star-outline" data-value="4"></span>
+            <span class="star-outline" data-value="5"></span>
+          </div>
+          <div id="average-rating" class="average-rating">
+            <i class="fa fa-star"></i>
+            <span>Calificación: 0</span>
+          </div>
+        </div>
+        <div style="margin-left: auto;">
+          <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link">
+            <span class="fa fa-share"><%= __('share') %></span>
+          </a>
+        </div>
+      </footer>
+    </div>
+    <% if (!index){ %>
+      <%- partial('post/nav') %>
+    <% } %>
+  </article>
 
-<% if (!index && post.comments && theme.disqus_shortname){ %>
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-<% } %>
-<% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
-  <section id="comments" class="vcomment">
-
+  <% if (!index && post.comments && theme.disqus_shortname){ %>
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
   </section>
-<% } %>
+  <% } %>
+  <% if (!index && post.comments && theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
+    <section id="comments" class="vcomment">
+    </section>
+  <% } %>
+
+  <script src="/js/article-rating.js"></script>
+</body>
+</html>
